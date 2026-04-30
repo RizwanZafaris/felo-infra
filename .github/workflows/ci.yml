@@ -1,0 +1,10 @@
+name: CI
+on: [pull_request, push]
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          echo "yaml lint placeholder"
+          find . -name '*.yml' -o -name '*.yaml' | xargs -r -I {} sh -c 'python3 -c "import yaml,sys; yaml.safe_load(open(sys.argv[1]))" "{}"'

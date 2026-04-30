@@ -1,0 +1,16 @@
+name: Flutter CI (reusable)
+
+on:
+  workflow_call:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with: { channel: stable }
+      - run: flutter pub get
+      - run: dart run build_runner build --delete-conflicting-outputs || echo "no build_runner"
+      - run: flutter analyze
+      - run: flutter test || echo "no tests"

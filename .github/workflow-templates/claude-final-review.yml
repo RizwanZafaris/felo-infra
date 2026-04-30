@@ -1,0 +1,17 @@
+name: Claude Final Review
+
+on:
+  pull_request:
+    types: [labeled, synchronize]
+
+jobs:
+  gate:
+    if: contains(github.event.pull_request.labels.*.name, 'ready-for-claude-final-review')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Notice
+        run: |
+          echo "PR is labeled ready-for-claude-final-review"
+          echo "Awaiting Claude Code final review + merge."
+          echo "No agent other than Claude Code should merge this PR to main."
